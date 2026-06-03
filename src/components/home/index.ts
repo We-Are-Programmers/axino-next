@@ -1,0 +1,10 @@
+export { BannerSection } from "./BannerSection";
+export { BenefitsSection } from "./BenefitsSection";
+export { ClientsSection } from "./ClientsSection";
+export { CtaSection } from "./CtaSection";
+export { FaqSection } from "./FaqSection";
+export { FeaturesSection } from "./FeaturesSection";
+export { FunfactSection } from "./FunfactSection";
+export { HowItWorksSection } from "./HowItWorksSection";
+export { PricingSection } from "./PricingSection";
+export { TestimonialsSection } from "./TestimonialsSection";

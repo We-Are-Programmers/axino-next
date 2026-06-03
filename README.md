@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Axino Next.js
 
-## Getting Started
+Next.js 15 (App Router) conversion of the Axino SaaS HTML template — React components, **Swiper React**, **AOS**, and hooks (no jQuery).
 
-First, run the development server:
+## Stack
+
+- Next.js 15 + React 19 + TypeScript
+- `swiper` / `swiper/react` for carousels
+- `aos` for scroll animations
+- Custom hooks: preloader, back-to-top, sticky header, count-up
+- Original template CSS in `public/css/`
+
+## Commands
 
 ```bash
+cd axino-next
+npm install
+npm run copy-assets   # sync images/fonts/css from parent ../ folder
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`predev` and `prebuild` run `copy-assets` automatically.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Routes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Route | Description |
+|-------|-------------|
+| `/` | Task Management SaaS (home 01) |
+| `/home/app-landing` | Home 02 + `style-2.css` |
+| `/home/ai-copywriting` | Home 03 + `style-3.css` |
+| `/home/automation-saas` | Home 04 + `style-4.css` |
+| `/team`, `/team/[slug]` | Team grid & details |
+| `/shop`, `/shop/sidebar`, `/shop/[slug]` | Shop listing & product |
+| `/shop/cart`, `/shop/checkout` | Cart & checkout |
+| `/about`, `/contact`, `/pricing`, `/faq`, `/blog`, `/services` | Inner pages |
 
-## Learn More
+## Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/              # App Router pages
+├── components/
+│   ├── home/         # Home sections + variants/
+│   ├── layout/       # Header, Footer, PageWrapper
+│   ├── shop/         # Product grid, cart
+│   ├── team/         # Team cards
+│   ├── ui/           # Swiper, buttons, section title
+│   └── providers/    # AOS + sticky header
+├── hooks/            # useAos, usePreloader, useCountUp, …
+└── lib/data/         # Navigation & content data
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Images
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The downloaded HTML package may only include a subset of images. After obtaining the full ThemeForest assets, place them in `../images/` (parent folder) and run:
 
-## Deploy on Vercel
+```bash
+npm run copy-assets
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Migration notes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Removed**: jQuery, `script.js`, and the full `public/js/` dependency chain for core UI.
+- **Replaced with**: React state (mobile menu, FAQ, pricing tabs, shop filters, automation feature tabs) and Swiper React.
+- Optional: keep `public/js/` for pages that still need Fancybox/GSAP text reveal; those can be migrated incrementally.
